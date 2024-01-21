@@ -1,0 +1,57 @@
+----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date:    19:07:24 02/21/2015 
+-- Design Name: 
+-- Module Name:    eightled - Behavioral 
+-- Project Name: 
+-- Target Devices: 
+-- Tool versions: 
+-- Description: 
+--
+-- Dependencies: 
+--
+-- Revision: 
+-- Revision 0.01 - File Created
+-- Additional Comments: 
+--
+----------------------------------------------------------------------------------
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--use IEEE.NUMERIC_STD.ALL;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx primitives in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
+
+entity eightled is
+    Port ( clk : in  STD_LOGIC;
+           ledoutput : out  STD_LOGIC_VECTOR (7 downto 0));
+end eightled;
+
+architecture Behavioral of eightled is
+signal counter : integer range 0 to 12000000 :=0;
+signal ledclk : std_logic_vector(0 to 7):="00000000";
+
+begin
+
+process(clk)
+begin
+				if rising_edge(clk) then
+				counter<= counter+1;
+				if (counter<=11999999) then
+				counter<=0;
+				ledclk<= not (ledclk);
+				end if;
+				end if;
+end process;
+ledoutput <= ledclk;
+
+
+end Behavioral;
+

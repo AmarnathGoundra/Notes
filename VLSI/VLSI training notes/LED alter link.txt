@@ -1,0 +1,65 @@
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_unsigned.ALL;
+use IEEE.STD_LOGIC_arith.ALL;
+
+
+entity LEDblink is
+    Port ( clk : in  STD_LOGIC;
+	 LEDoutput1 : out  STD_LOGIC;
+	 LEDoutput2 : out  STD_LOGIC;
+	 LEDoutput3 : out  STD_LOGIC;
+           LEDoutput4 : out  STD_LOGIC);
+end LEDblink;
+
+architecture Behavioral of LEDblink is
+signal countr1 : integer range 0 to 12000000:=0;
+signal countr2 : integer range 0 to 6000000:=0;
+signal countr3 : integer range 0 to 3000000:=0;
+signal countr4 : integer range 0 to 1500000:=0;
+signal LEDclk1: std_logic:='0';
+signal LEDclk2 : std_logic:='0';
+signal LEDclk3 : std_logic:='0';
+signal LEDclk4 : std_logic:='0';
+begin
+
+process(clk)
+begin
+if rising_edge(clk) then
+   countr1 <= countr1 + 1;
+	countr2 <= countr2 + 1;
+	countr3 <= countr3 + 1;
+	countr4 <= countr4 + 1;
+	
+	if (countr1 = 11999999) then
+	countr1 <= 0;
+	LEDclk1 <= not(LEDclk1);
+	end if;
+	
+	
+	if (countr2 = 5999999) then
+	countr2 <= 0;
+	LEDclk2 <= not(LEDclk2);
+	end if;
+	
+	
+	if (countr3 = 2999999) then
+	countr3 <= 0;
+	LEDclk3 <= not(LEDclk3);
+	end if;
+	
+	
+	if (countr4 = 1199999) then
+	countr4 <= 0;
+	LEDclk4 <= not(LEDclk4);
+	end if;
+	
+end if;
+end process;
+LEDoutput1 <= LEDclk1 ;
+LEDoutput2 <= LEDclk2 ;
+LEDoutput3 <= LEDclk3 ;
+LEDoutput4 <= LEDclk4 ;
+end Behavioral;
+
